@@ -34,24 +34,19 @@
 </style>
 <script>
     function display(number) {
-        // for now just display the number in a <p> element
         document.getElementById("decimal_input").innerHTML=number
         var bin = dec2bin(number)
         document.getElementById("binary_output").innerHTML=bin
         
-        // send binary number to function bin2ssd
         document.getElementById("binary2ssd_input").innerHTML=bin
         var ssd = bin2ssd(bin)
         document.getElementById("binary2ssd_output").innerHTML=ssd
         
-        // send ssd signals to function illuminate_segments()
         document.getElementById("segments").innerHTML=ssd
         illuminate(ssd)
-        //document.getElementById("segments").innerHTML='done'
     }
     
     function bin2ssd (binary) {
-        // convert the four bit input string into w,x,y,z variables
         var w = false
         var x = false
         var y = false
@@ -61,7 +56,6 @@
         if (binary[2] == '1') {y = true}
         if (binary[3] == '1') {z = true}
         
-        // "compute" the value of logical expression for each segment
         var a = !w&x&z || w&!x&!y || !x&!y&!z || !w&y;
         var b = !w&!x || !w&!y&!z || !w&y&z || !x&!y;
         var c = !x&!y || !w&z || !w&x;
@@ -69,8 +63,6 @@
         var e = !x&!y&!z || !w&y&!z;
         var f = !w&!y&!z || !w&x&!y || !w&x&!z || w&!x&!y;
         var g = !w&!x&y || !w&y&!z || !w&x&!y || w&!x&!y;									
-        // assemble and return the output
-        // we will build up the output string element by element
         var output = ''
         if (a) {output = output + '1'} else {output = output + '0'}
         if (b) {output = output + '1'} else {output = output + '0'}
@@ -79,7 +71,7 @@
         if (e) {output = output + '1'} else {output = output + '0'}
         if (f) {output = output + '1'} else {output = output + '0'}
         if (g) {output = output + '1'} else {output = output + '0'}
-        return(output) //initial default just illuminates segment A
+        return(output) 
     }
     
     function illuminate(signals) {
@@ -154,7 +146,6 @@
     }
     
     function dec2binLame(decimal) {
-        // for stub just return '0000'
         var binary = ["0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001"]
         return (binary[decimal])
     }
